@@ -1,42 +1,36 @@
-import "./style.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Bio from "./Bio";
+import "./style.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import EditDetails from "./EditDetails";
-
-const Intro = ({ detailss, visitor }) => {
+export default function Intro({ detailss, visitor }) {
   const { user } = useSelector((state) => ({ ...state }));
-  // const [details, setDetails] = useState(detailss);
   const [details, setDetails] = useState();
-  const [visible, setVisible] = useState(1);
-
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     setDetails(detailss);
+    setInfos(detailss);
   }, [detailss]);
   const initial = {
     bio: details?.bio ? details.bio : "",
-    othername: details?.othername ? details.othername : "",
+    otherName: details?.otherName ? details.otherName : "",
     job: details?.job ? details.job : "",
-
     workplace: details?.workplace ? details.workplace : "",
-    highschool: details?.highschool ? details.highschool : "",
+    highSchool: details?.highSchool ? details.highSchool : "",
     college: details?.college ? details.college : "",
     currentCity: details?.currentCity ? details.currentCity : "",
     hometown: details?.hometown ? details.hometown : "",
-    relationship: details?.relatinship ? details.relationship : "",
+    relationship: details?.relationship ? details.relationship : "",
     instagram: details?.instagram ? details.instagram : "",
   };
   const [infos, setInfos] = useState(initial);
   const [showBio, setShowBio] = useState(false);
   const [max, setMax] = useState(infos?.bio ? 100 - infos?.bio.length : 100);
-  // const handleBioChange = (e) => {
-  //   setInfos({ ...infos, bio: e.target.value });
-  //   setMax(100 - e.target.value.length);
-  // };
+
   const updateDetails = async () => {
-    console.log("sent");
     try {
+      console.log("sent");
       const { data } = await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/updateDetails`,
         {
@@ -48,21 +42,17 @@ const Intro = ({ detailss, visitor }) => {
           },
         }
       );
-      console.log("DATA");
-      console.log(data);
       setShowBio(false);
       setDetails(data);
     } catch (error) {
-      console.log("ERROR");
       console.log(error.response.data.message);
     }
   };
-   const handlechange = (e) => {
-      const {name,value} = e.target;
-      setInfos({...infos, [name]:value});
-      setMax(100 - e.target.value.length);
-
-   }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInfos({ ...infos, [name]: value });
+    setMax(100 - e.target.value.length);
+  };
   return (
     <div className="profile_card">
       <div className="profile_card_header">Intro</div>
@@ -80,7 +70,10 @@ const Intro = ({ detailss, visitor }) => {
         </div>
       )}
       {!details?.bio && !showBio && !visitor && (
-        <button className="gray_btn hover1 w100" onClick={() => setShowBio(true)}>
+        <button
+          className="gray_btn hover1 w100"
+          onClick={() => setShowBio(true)}
+        >
           Add Bio
         </button>
       )}
@@ -88,14 +81,13 @@ const Intro = ({ detailss, visitor }) => {
         <Bio
           infos={infos}
           max={max}
-          handlechange={handlechange}
+          handleChange={handleChange}
           setShowBio={setShowBio}
           updateDetails={updateDetails}
           placeholder="Add Bio"
           name="bio"
         />
       )}
-
       {details?.job && details?.workplace ? (
         <div className="info_profile">
           <img src="../../../icons/job.png" alt="" />
@@ -157,11 +149,23 @@ const Intro = ({ detailss, visitor }) => {
         </div>
       )}
       {!visitor && (
-        <button className="gray_btn hover1 w100">Edit Details</button>
+        <button
+          className="gray_btn hover1 w100"
+          onClick={() => setVisible(true)}
+        >
+          Edit Details
+        </button>
       )}
-      { 
-        visible && !visitor && <EditDetails details={details} handlechange={handlechange}/>
-      }
+      {visible && !visitor && (
+        <EditDetails
+          details={details}
+          handleChange={handleChange}
+          updateDetails={updateDetails}
+          infos={infos}
+          setVisible={setVisible}
+        />
+      )}
+
       {!visitor && (
         <button className="gray_btn hover1 w100">Add Hobbies</button>
       )}
@@ -170,6 +174,4 @@ const Intro = ({ detailss, visitor }) => {
       )}
     </div>
   );
-};
-
-export default Intro;
+}

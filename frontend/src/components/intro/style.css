@@ -6,15 +6,12 @@
   font-size: 15px;
   color: var(--color-primary);
 }
-
 .info_profile img {
   filter: invert(40%);
 }
-
 .info_text {
-  word-break: break-all;
+  word-break: break-word;
 }
-
 .info_col {
   text-align: center;
   display: flex;
@@ -24,79 +21,65 @@
 .info_col button {
   width: 100%;
 }
-
 .w100 {
   width: 100%;
   margin: 10px 0;
 }
-
 .add_bio_wrap {
   display: flex;
   flex-direction: column;
 }
-
 .details_input {
   margin-top: 10px;
   background: var(--bg-secondary) !important;
 }
-
 .details_input:focus {
   outline-color: var(--blue-color) !important;
   outline-offset: 1px !important;
 }
-
 .remaining {
   font-size: 12px;
-  color: var(--color-secondary) !important;
+  color: var(--color-secondary);
   align-self: flex-end;
   margin-top: 2px;
 }
-
 .add_bio_wrap .flex {
   margin-top: 5px;
   justify-content: space-between;
 }
-
 .flex_left {
   font-size: 14px;
   color: var(--color-secondary);
 }
-
 .flex_left i {
   filter: invert(40%);
-  -webkit-filter: invert(40%);
 }
-
 .infosBox {
   height: 82vh;
-  width: 800px;
+  width: 800px !important;
 }
-
 .details_wrapper {
   padding: 1rem;
+  overflow-y: auto;
+  height: 75vh;
 }
-
 .details_col {
   display: flex;
   flex-direction: column;
 }
-
 .details_col span:first-of-type {
   color: var(--color-primary);
   font-weight: 600;
 }
-
 .details_col span:last-of-type {
   color: var(--color-secondary);
-  font-weight: 14px;
+  font-size: 14px;
 }
-
 .details_header {
   margin-top: 15px;
   font-weight: 600;
   font-size: 20px;
 }
-
 .add_details_flex {
   position: relative;
   display: flex;
@@ -108,21 +91,21 @@
   cursor: pointer;
 }
 
-.add_details_flex:hover {
-  text-decoration: underline;
-}
-
 .add_details_flex .edit_icon {
   position: absolute;
   right: 1rem;
   cursor: pointer;
   transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
 }
-
-.no_underline:hover {
-    text-decoration: none;
+.underline:hover {
+  text-decoration: underline;
+}
+.select_rel {
+  height: 30px;
+  outline: none;
+  border: none;
+  background: var(--bg-secondary);
+  margin: 10px 0;
+  padding: 0 10px;
+  border-radius: 5px;
 }

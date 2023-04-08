@@ -1,14 +1,23 @@
 import { useState } from "react";
 import Bio from "./Bio";
 
-const Detail = ({ header, img, value, placeholder, name, handlechange }) => {
-  const [show, setShow] = useState(true);
+export default function Detail({
+  img,
+  value,
+  placeholder,
+  name,
+  handleChange,
+  updateDetails,
+  infos,
+  text,
+  rel,
+}) {
+  const [show, setShow] = useState(false);
   return (
     <div>
-      <div className="details_header">{header}</div>
-      <div className="add_details_flex ">
+      <div className="add_details_flex " onClick={() => setShow(true)}>
         {value ? (
-          <div className="info_profile no_underline">
+          <div className="info_profile ">
             <img src={`../../../icons/${img}.png`} alt="" />
             {value}
             <i className="edit_icon"></i>
@@ -16,7 +25,7 @@ const Detail = ({ header, img, value, placeholder, name, handlechange }) => {
         ) : (
           <>
             <i className="rounded_plus_icon"></i>
-            Add {header}
+            <span className="underline">Add {text}</span>
           </>
         )}
       </div>
@@ -24,11 +33,14 @@ const Detail = ({ header, img, value, placeholder, name, handlechange }) => {
         <Bio
           placeholder={placeholder}
           name={name}
-          handlechange={handlechange}
+          handleChange={handleChange}
+          updateDetails={updateDetails}
+          infos={infos}
+          detail
+          setShow={setShow}
+          rel={rel}
         />
       )}
     </div>
   );
-};
-
-export default Detail;
+}
